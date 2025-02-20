@@ -1,0 +1,5 @@
+INDEX VERSION 1.134+C:\Users\AcerGamer\Documents\ws_Eclipse\.metadata\.plugins\org.eclipse.jdt.core
+1440468234.index
+2707462519.index
+76399887.index
+1865797976.index

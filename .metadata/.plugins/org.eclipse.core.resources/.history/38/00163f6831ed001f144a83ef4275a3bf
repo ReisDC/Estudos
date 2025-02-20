@@ -1,0 +1,15 @@
+package lista_Exercicios_1;
+import java.util.Scanner;
+
+public class Ex1 {
+	public static void main (String args[]){
+		Scanner scr = new Scanner(System.in);
+		
+		int valor1 = scr.nextInt();
+		int valor2 = scr.nextInt();
+		
+		int resultado = valor1 + valor2;
+		
+		System.out.println("Valor = " + resultado);
+	}
+}

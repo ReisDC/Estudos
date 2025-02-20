@@ -1,0 +1,16 @@
+package duplamente;
+
+public class Testar_questao14 {
+	
+	    public static void main(String[] args) {
+	        ListaDupla lista = new ListaDupla();
+	        lista.add('a');
+	        lista.add('r');
+	        lista.add('a');
+	        lista.add('r');
+	        lista.add('o');
+
+	        lista.testPalindrome();
+	    }
+	}
+ 

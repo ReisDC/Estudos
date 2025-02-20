@@ -1,0 +1,70 @@
+package arvore;
+import java.util.Scanner;
+import dados.Item;
+public class BlocoPrincipalArvore {
+	
+	static Scanner scr = new Scanner(System.in);
+	public static void  main(String args[]) {
+		Arvore arvore = new Arvore();
+		int valor;
+		Item [] vetor = new Item[10];
+		char opcao;
+		do {
+				System.out.println("Escolha uma opção:\n"+
+									"1. Inserir Nó na árvore"+
+									"2. Localizar Nó na árvore"+
+									"3. Excluir Nó da árvore"+
+									"4. Exibir árvore ordenada"+
+									"5. Sair");
+				opcao = scr.next().charAt(0);
+				switch (opcao) {
+				case 1:
+					System.out.println("Inserir um valor na Árvore\n"+
+										"Digite um valor:");
+					valor = scr.nextInt();
+					if(arvore.inserir(new Item(valor))) {
+						System.out.println("Inserção efetuada com sucesso!");
+					}else {
+						System.out.println("Inserção não efetuada, "+ "Valor ja existente");
+					}
+					break;
+				case 2:
+					if(arvore.eVazia()) {
+						System.out.println("Árvore está vazia.");
+					}else {
+						System.out.println("O valor não foi encontrado na árvore");
+					}
+					break;
+				case 3:
+					if(arvore.eVazia()) {
+						System.out.println("A árvore está vazia");
+					}else {
+						System.out.println("Excluir um elemento da lista\n"+
+											"Digite um valor");
+						valor = scr.nextInt();
+					if(arvore.remover(valor)) {
+						System.out.println("Remoção efetuada");
+					}else {
+						System.out.println("Remoção não efetuada\n"+
+											"Valor não encontrado");
+						}
+					}
+					break;
+				case 4:
+					if(arvore.eVazia()) {
+						System.out.println("A árvore está vazia");
+					}else {
+						vetor = arvore.CamCentral();
+						String msg =" ";
+						for(int i=0; i < arvore.getQuantNos(); i++) {
+							msg +=vetor[i].getChave() + "";
+						}
+						System.out.println("Exibir a árvore" + msg);
+					}
+					break;
+					
+				}while (opcao != 5);
+				System.exit(0);
+		}
+	}
+}

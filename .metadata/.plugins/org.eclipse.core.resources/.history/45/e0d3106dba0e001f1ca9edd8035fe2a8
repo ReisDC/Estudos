@@ -1,0 +1,272 @@
+package duplamente;
+import dados.Item;
+
+public class ListaDupla {
+	private NoDupla prim;
+	private NoDupla ult;
+	private int quantNos;
+	
+public ListaDupla(){
+	this.prim = null;
+	this.ult = null;
+	this.quantNos = 0;
+}
+	public int getQuantNos(){
+	return this.quantNos;
+}
+	public NoDupla getPrim(){
+	return this.prim;
+}
+	public NoDupla getUlt(){
+	return this.ult;
+}
+	public void setQuantNos(int valorNovo){
+	this.quantNos = valorNovo;
+}
+	public void setPrim(NoDupla novoNo){
+	this.prim = novoNo;
+}
+	public void setUlt(NoDupla novoNo){
+	this.ult = novoNo;
+}
+	
+public boolean eVazia (){
+	return (this.prim == null);
+	}
+	//insere um novo nó no final da lista ou se a lista estiver vazia, insere o primeiro nó na lista
+public void inserirUltimo (Item elem){
+	NoDupla novoNo = new NoDupla (elem);
+	if (this.eVazia())
+		this.prim = novoNo;
+	else {
+	novoNo.setAnt(this.ult);
+	this.ult.setProx(novoNo);
+	}
+	this.ult = novoNo;
+	this.quantNos++;
+	}
+	//retorna o endereço do nó que está contendo o valor a ser procurado.
+	public NoDupla pesquisarNo (int chave){
+	NoDupla atual = this.prim;
+	while ((atual != null) && (atual.getInfo().getChave() != chave))
+	atual = atual.getProx();
+	return atual;
+	}
+	
+	//remove um determinado nó em qualquer posição na lista.
+	public boolean removerNo (int chave){
+	NoDupla atual = this.prim;
+	while ((atual != null) && (atual.getInfo().getChave()!= chave)){
+	atual = atual.getProx();
+	}
+	if (atual == null)
+	return false;
+	else
+	if (atual == this.prim){
+	this.prim = prim.getProx();
+	if (this.prim == null) //se a lista tem somente um nó
+	this.ult=null;
+	else
+	this.prim.setAnt(null);
+	}
+	else
+	if (atual == this.ult){
+	this.ult = this.ult.getAnt();
+	this.ult.setProx(null);
+	}
+	else {
+		//remove nó no meio da lista
+	atual.getProx().setAnt(atual.getAnt());
+	atual.getAnt().setProx(atual.getProx());
+	}
+	this.quantNos--;
+	return true;
+	}
+	public String toString(){
+	String msg="";
+	NoDupla atual = this.prim;
+	while (atual != null){
+	msg += atual.getInfo().getChave()+"\n";
+	atual = atual.getProx();
+	}
+	return msg;
+	}
+	
+	//Atividade 4 - Questão 6
+	public void ConcatenarListas(ListaDupla lista2) {
+		this.ult.setProx(lista2.prim);
+		lista2.prim.setAnt(this.ult);
+		this.ult = lista2.ult;
+		lista2.prim = null;
+		lista2.ult = null;
+		this.quantNos += lista2.quantNos;
+		lista2.quantNos = 0;
+		}	
+	
+	//Atividade 4 - Questão 7
+	public ListaDupla dividirAoMeio() {
+        ListaDupla novaLista = new ListaDupla();
+        
+        if (prim == null || prim == ult) {
+            // Lista vazia ou contém apenas um elemento
+            return novaLista;
+        }
+        
+        NoDupla rapido = prim;
+        NoDupla lento = prim;
+        
+        // Avança o ponteiro "rapido" dois nós por vez e o ponteiro "lento" um nó por vez
+        while (rapido != null && rapido.getProx() != null) {
+            rapido = rapido.getProx().getProx();
+            lento = lento.getProx();
+        }
+        // "lento" está agora na metade da lista
+        // O nó após "lento" se torna o primeiro nó da nova lista
+        novaLista.setPrim(lento.getProx());
+        lento.getProx().setAnt(null); // O nó anterior ao primeiro nó da nova lista é null
+        // O último nó da lista original se torna o último nó da nova lista
+        novaLista.setUlt(ult);
+        setUlt(lento); // O nó anterior ao último nó da lista original é o "lento"
+        lento.getProx().setAnt(null); // O próximo nó após o "lento" (que agora é o último nó da lista original) é null
+        // Atualiza o tamanho das listas
+        novaLista.setQuantNos(quantNos / 2);
+        setQuantNos(quantNos - novaLista.getQuantNos());
+        
+        return novaLista;
+    }
+		public void inserirNoFim(int valor) {
+		    NoDupla novoNo = new NoDupla(valor);
+		    if (prim == null) {
+		        prim = novoNo;
+		        ult = novoNo;
+		    } else {
+		        novoNo.setAnt(ult);
+		        ult.setProx(novoNo);
+		        ult = novoNo;
+		    }
+		    quantNos++;
+		}
+	
+	//Atividade 4 - Questão 10
+	
+	public boolean removerZeros() {
+		if (this.eVazia()){
+			return false;
+		}else {
+			int cont = 0;
+			NoDupla atual = this.prim;
+			while (atual != null) {
+				if (atual.getInfo().getChave() == 0) {
+					if (atual == this.prim) {
+						this.prim = this.prim.getProx();
+						if (atual == this.ult) {
+							this.ult = null;
+						}else {
+							this.prim.setAnt(null);
+						}
+					}else {
+						if (atual==this.ult) {
+							this.ult = this.ult.getAnt();
+							this.ult.setProx(null);
+						}else {
+							atual.getAnt().setProx(atual.getProx());
+							atual.getProx().setAnt(atual.getAnt());
+						}
+					}
+					this.quantNos--;
+					cont++;
+				}
+				atual = atual.getProx();
+			}
+			if (cont == 0) {
+				return false;
+			}else {
+				return true;
+			}
+		}
+	}
+	
+	// Atividade 4 - questão 14
+	
+	 public void add(char data) {
+	        NoDupla newNode = new NoDupla(data);
+	        if (eVazia()) {
+	            this.prim = newNode;
+	            this.ult = newNode;
+	        } else {
+	            this.ult.setProx(newNode);
+	            newNode.setAnt(this.ult);
+	            this.ult = newNode;
+	        }
+	        this.quantNos++;
+	    }
+	
+	
+	public boolean isPalindrome() {
+	    if (eVazia()) {
+	        return false;
+	    }
+	    
+	    // Define dois ponteiros, um do início para o fim e outro do fim para o início
+	    NoDupla inicio = this.prim;
+	    NoDupla fim = this.ult;
+
+	    // Percorre a lista encadeada da esquerda para a direita e da direita para a esquerda ao mesmo tempo
+	    while (inicio != null && fim != null) {
+	        // Se os caracteres nos nós atuais não forem iguais, a lista não é um palíndromo
+	        if (inicio.getInfo() != fim.getInfo()) {
+	            return false;
+	        }
+	        // Move o ponteiro do início para o próximo nó
+	        inicio = inicio.getProx();
+	        // Move o ponteiro do fim para o nó anterior
+	        fim = fim.getAnt();
+	    }
+
+	    // Se os ponteiros se cruzarem ou estiverem nulos, significa que a lista é um palíndromo
+	    return true;
+	}
+	
+	public void testPalindrome() {
+        if (isPalindrome()) {
+            System.out.println("A lista encadeada é um palíndromo");
+        } else {
+            System.out.println("A lista encadeada não é um palíndromo");
+        }
+    }
+
+    	
+	
+	//Atividade 4 - Questão 15
+	public void inserirOrdenado(int novoValor) {
+ 
+		NoDupla novoNo = new NoDupla(novoValor);// Aqui estamos criando um novo nó para ser inserido na lista.
+												//Ele contém o valor novoValor passado como argumento.
+		if (prim == null) {
+            prim = novoNo;
+            ult = novoNo;
+		}else if(novoValor < prim.getValor()) {// Esta parte verifica se o novo valor é menor que o valor do primeiro nó da lista (prim). 
+										//Se for o caso, o novo nó é inserido antes do primeiro nó na lista.
+			novoNo.setProx(prim);// Define o próximo nó do novo nó como o atual primeiro nó da lista.
+            prim.setAnt(novoNo);// Define o nó anterior do atual primeiro nó como o novo nó.
+            prim = novoNo;//Atualiza o ponteiro prim para apontar para o novo primeiro nó.
+		}else if(novoValor > ult.getValor()) {//Se o novo valor não for menor que o primeiro nó, esta parte verifica se ele é maior que o valor do último nó da lista (ult).
+											 //Se for o caso, o novo nó é inserido após o último nó na lista.
+ 			ult.setProx(novoNo);// Define o próximo nó do atual último nó como o novo nó.
+			novoNo.setAnt(ult);// Define o nó anterior do novo nó como o atual último nó.
+			ult = novoNo;//Atualiza o ponteiro ult para apontar para o novo último nó.
+		}else {//Se o novo valor estiver entre o primeiro e o último nó da lista, esta parte é executada.
+	   		  //Isso envolve percorrer a lista até encontrar a posição correta para inserir o novo nó mantendo a ordem crescente.
+			NoDupla atual = prim;//Inicializa um ponteiro atual para percorrer a lista a partir do primeiro nó.
+			while(atual != null && novoValor > atual.getValor()) {//Este laço percorre a lista até encontrar o primeiro nó cujo valor seja maior que o novo valor ou até chegar ao final da lista.
+				atual = atual.getProx();
+			}
+			novoNo.setProx(atual);//Define o próximo nó do novo nó como o nó atual (o nó que será imediatamente após o novo nó).
+			novoNo.setAnt(atual.getAnt());// Define o nó anterior do novo nó como o nó anterior do nó atual.
+			atual.getAnt().setProx(novoNo);//Define o próximo nó do nó anterior ao nó atual como o novo nó.
+			atual.setAnt(novoNo);//Define o nó anterior do nó atual como o novo nó.
+		}
+		quantNos++;//Incrementa o contador de nós da lista, pois um novo nó foi adicionado.
+	 }	
+}
+	

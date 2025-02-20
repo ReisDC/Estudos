@@ -1,0 +1,40 @@
+package arvore;
+import java.util.Scanner;
+
+public class BlocoPrincipalArvore {
+	
+	static Scanner scane = new Scanner(System.in);
+	
+	/*
+	 * A
+	 * AA
+	 * AAA
+	 * AAA
+	 * AAA
+	 * AAA
+	 * AAA
+	 * AAA
+	 * AAA
+	 * AAA
+	 * AAA
+	 * AAA
+	 * AAA
+	 * AAA
+	 * AAA
+	 * AAA
+	 * AAA
+	 * AAA
+	 * AAA
+	 * AAA
+	 * AAA
+	 * AAA
+	 * AA
+	 * AAA
+	 * AAA
+	 * AAA
+	 * AAA
+	 * AAA
+	 * 
+	 */
+
+}

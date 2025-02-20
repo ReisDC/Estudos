@@ -1,0 +1,23 @@
+package duplamente;
+
+public class Testar_questao14 {
+	
+	  public void testPalindrome() {
+	        if (isPalindrome()) {
+	            System.out.println("A lista encadeada é um palíndromo");
+	        } else {
+	            System.out.println("A lista encadeada não é um palíndromo");
+	        }
+	    }
+
+	    public static void main(String[] args) {
+	        ListaDupla lista = new ListaDupla();
+	        lista.add('r');
+	        lista.add('a');
+	        lista.add('d');
+	        lista.add('a');
+	        lista.add('r');
+
+	        lista.testPalindrome();
+	    }
+	}
